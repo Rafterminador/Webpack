@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
     // Entry nos permite decir el punto de entrada de nuestra aplicación
     entry: "./src/index.js",
@@ -26,6 +27,10 @@ module.exports = {
                 },
                 // Exclude permite omitir archivos o carpetas especificas
                 exclude: /node_modules/
+            },
+            {
+                test: /\.css$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
             }
         ]
     },
@@ -34,6 +39,7 @@ module.exports = {
             inject: true, // INYECTA EL BUNDLE AL TEMPLATE HTML
             template: './public/index.html', // LA RUTA AL TEMPLATE HTML
             filename: './index.html' // NOMBRE FINAL DEL ARCHIVO
-        })
+        }),
+        new MiniCssExtractPlugin()
     ]
 }
