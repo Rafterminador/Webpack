@@ -1,6 +1,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 module.exports = {
     // Entry nos permite decir el punto de entrada de nuestra aplicación
     entry: "./src/index.js",
@@ -10,7 +12,7 @@ module.exports = {
         // Con path.resolve podemos decir dónde va estar la carpeta y la ubicación del mismo
         path: path.resolve(__dirname, "dist"),
         // filename le pone el nombre al archivo final, se le puede poner con un hash el nombre
-        filename: "main.js"
+        filename: "[name].[contenthash].js"
     },
     resolve: {
         // Aqui ponemos las extensiones que tendremos en nuestro proyecto para webpack los lea, aqui iria svelte o react si utilizaramos
@@ -54,7 +56,16 @@ module.exports = {
             template: './public/index.html', // LA RUTA AL TEMPLATE HTML
             filename: './index.html' // NOMBRE FINAL DEL ARCHIVO
         }),
-        new MiniCssExtractPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'assets/[name].[contenthash].css'
+        }),
 
-    ]
+    ],
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new CssMinimizerPlugin(),
+            new TerserPlugin(),
+        ]
+    }
 }
