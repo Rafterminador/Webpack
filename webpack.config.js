@@ -1,7 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CopyPlugin = require('copy-webpack-plugin')
 module.exports = {
     // Entry nos permite decir el punto de entrada de nuestra aplicación
     entry: "./src/index.js",
@@ -32,6 +31,13 @@ module.exports = {
             {
                 test: /\.css$/i,
                 use: [MiniCssExtractPlugin.loader, 'css-loader']
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'static/images/[hash][ext][query]',
+                },
             }
         ]
     },
@@ -42,14 +48,6 @@ module.exports = {
             filename: './index.html' // NOMBRE FINAL DEL ARCHIVO
         }),
         new MiniCssExtractPlugin(),
-        new CopyPlugin({
-            patterns: [
-                {
-                    //__dirname ruta relativa/src/assets/images lo que vamos a copiar hacia assets/images
-                    from: path.resolve(__dirname, "src", "assets/images"),
-                    to: "assets/images"
-                }
-            ]
-        })
+
     ]
 }
