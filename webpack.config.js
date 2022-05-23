@@ -16,7 +16,6 @@ module.exports = {
         filename: "[name].[contenthash].js",
         clean: true,
     },
-    watch: true,
     resolve: {
         // Aqui ponemos las extensiones que tendremos en nuestro proyecto para webpack los lea, aqui iria svelte o react si utilizaramos
         extensions: [".js"],
