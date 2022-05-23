@@ -13,7 +13,8 @@ module.exports = {
         // Con path.resolve podemos decir dónde va estar la carpeta y la ubicación del mismo
         path: path.resolve(__dirname, "dist"),
         // filename le pone el nombre al archivo final, se le puede poner con un hash el nombre
-        filename: "[name].[contenthash].js"
+        filename: "[name].[contenthash].js",
+        clean: true,
     },
     resolve: {
         // Aqui ponemos las extensiones que tendremos en nuestro proyecto para webpack los lea, aqui iria svelte o react si utilizaramos
